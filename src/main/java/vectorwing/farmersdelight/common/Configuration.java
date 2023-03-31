@@ -119,7 +119,6 @@ public class Configuration
 				.define("overrideAllSoupItems", false);
 		COMMON_BUILDER.pop();
 
-
 		/*
 		 * Config file no longer changeable generation chance due 1.19.4 breaking change
 		 */
@@ -178,8 +177,7 @@ public class Configuration
 				.define("genRedMushroomColony", true);
 		CHANCE_RED_MUSHROOM_COLONIES = COMMON_BUILDER.comment("Chance of generating clusters. Smaller value = more frequent.")
 				.defineInRange("chance", 15, 0, Integer.MAX_VALUE);
-					*/
-		COMMON_BUILDER.pop();
+		COMMON_BUILDER.pop();*/
 
 		COMMON_BUILDER.pop();
 
