@@ -119,6 +119,10 @@ public class Configuration
 				.define("overrideAllSoupItems", false);
 		COMMON_BUILDER.pop();
 
+
+		/*
+		 * Config file no longer changeable generation chance due 1.19.4 breaking change
+		 */
 		COMMON_BUILDER.pop();
 
 		COMMON_BUILDER.comment("World generation").push(CATEGORY_WORLD);
@@ -126,7 +130,7 @@ public class Configuration
 				.define("generateFDChestLoot", true);
 		GENERATE_VILLAGE_COMPOST_HEAPS = COMMON_BUILDER.comment("Generate Compost Heaps across all village biomes")
 				.define("genVillageCompostHeaps", true);
-
+/*
 		COMMON_BUILDER.comment("Wild Cabbage generation").push("wild_cabbages");
 		CHANCE_WILD_CABBAGES = COMMON_BUILDER.comment("Chance of generating clusters. Smaller value = more frequent.")
 				.defineInRange("chance", 30, 0, Integer.MAX_VALUE);
@@ -174,6 +178,7 @@ public class Configuration
 				.define("genRedMushroomColony", true);
 		CHANCE_RED_MUSHROOM_COLONIES = COMMON_BUILDER.comment("Chance of generating clusters. Smaller value = more frequent.")
 				.defineInRange("chance", 15, 0, Integer.MAX_VALUE);
+					*/
 		COMMON_BUILDER.pop();
 
 		COMMON_BUILDER.pop();

@@ -17,10 +17,6 @@ import java.util.concurrent.CompletableFuture;
 public class WorldGenerator extends DatapackBuiltinEntriesProvider {
 
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-            .add(Registries.NOISE, (context) -> {
-            })
-            .add(Registries.DENSITY_FUNCTION, (context) -> {
-            })
             .add(Registries.CONFIGURED_FEATURE, WildCropGeneration::featureBootstrap)
             .add(Registries.PLACED_FEATURE, WildCropGeneration::placedFeatureBootstrap);
 

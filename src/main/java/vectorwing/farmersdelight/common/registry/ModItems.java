@@ -1,17 +1,21 @@
 package vectorwing.farmersdelight.common.registry;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.apache.logging.log4j.util.TriConsumer;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.*;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
-public class ModItems
-{
+public class ModItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, FarmersDelight.MODID);
 
 	// Helper methods
@@ -371,4 +375,8 @@ public class ModItems
 			() -> new DogFoodItem(bowlFoodItem(FoodValues.DOG_FOOD)));
 	public static final RegistryObject<Item> HORSE_FEED = ITEMS.register("horse_feed",
 			() -> new HorseFeedItem(basicItem().stacksTo(16)));
+
+	public static void onRegisterCreativeTabs(TriConsumer<ResourceLocation, RegistryObject<Item>, List<Item>> consumer) {
+		consumer.accept(new ResourceLocation(FarmersDelight.MODID, "main"), ModItems.IRON_KNIFE, BuiltInRegistries.ITEM.stream().filter(i -> BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(FarmersDelight.MODID)).toList());
+	}
 }

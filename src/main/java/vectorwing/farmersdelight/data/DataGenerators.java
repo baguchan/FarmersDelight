@@ -31,5 +31,6 @@ public class DataGenerators {
 		BlockStates blockStates = new BlockStates(packOutput, existingFileHelper);
 		generator.addProvider(event.includeClient(), blockStates);
 		generator.addProvider(event.includeClient(), new ItemModels(packOutput, blockStates.models().existingFileHelper));
+		generator.addProvider(event.includeServer(), new WorldGenerator(packOutput, lookupProvider));
 	}
 }

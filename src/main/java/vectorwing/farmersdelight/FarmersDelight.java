@@ -2,8 +2,10 @@ package vectorwing.farmersdelight;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -45,14 +47,22 @@ public class FarmersDelight
 		ModBiomeModifiers.BIOME_MODIFIER_SERIALIZERS.register(modEventBus);
 		ModSounds.SOUNDS.register(modEventBus);
 		ModBlockEntityTypes.TILES.register(modEventBus);
-		ModMenuTypes.MENU_TYPES.register(modEventBus);
-		ModRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
-		ModLootModifiers.LOOT_MODIFIERS.register(modEventBus);
-		ModRecipeTypes.RECIPE_TYPES.register(modEventBus);
-		ModEntityTypes.ENTITIES.register(modEventBus);
+        ModMenuTypes.MENU_TYPES.register(modEventBus);
+        ModRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
+        ModLootModifiers.LOOT_MODIFIERS.register(modEventBus);
+        ModRecipeTypes.RECIPE_TYPES.register(modEventBus);
+        ModEntityTypes.ENTITIES.register(modEventBus);
 
-		MinecraftForge.EVENT_BUS.addListener(VillageStructures::addNewVillageBuilding);
+        MinecraftForge.EVENT_BUS.addListener(VillageStructures::addNewVillageBuilding);
 
-		MinecraftForge.EVENT_BUS.register(this);
-	}
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    public static void onRegisterCreativeTabs(CreativeModeTabEvent.Register event) {
+        ModItems.onRegisterCreativeTabs((loc, item, items) -> event.registerCreativeModeTab(loc, b -> b
+                .title(Component.translatable("itemGroup.farmersdelight"))
+                .icon(() -> item.get().getDefaultInstance())
+                .displayItems((itemDisplayParameters, output) -> items.forEach(output::accept))
+                .build()));
+    }
 }

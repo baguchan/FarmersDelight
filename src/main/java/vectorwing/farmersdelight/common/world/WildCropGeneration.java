@@ -26,7 +26,6 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.registry.ModBiomeFeatures;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
@@ -100,29 +99,29 @@ public class WildCropGeneration {
 
     public static void placedFeatureBootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeature = context.lookup(Registries.CONFIGURED_FEATURE);
-        PlacementUtils.register(context, PATCH_WILD_CABBAGES, configuredFeature.getOrThrow(FEATURE_PATCH_WILD_CABBAGES), RarityFilter.onAverageOnceEvery(Configuration.CHANCE_WILD_CABBAGES.get()), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
+        PlacementUtils.register(context, PATCH_WILD_CABBAGES, configuredFeature.getOrThrow(FEATURE_PATCH_WILD_CABBAGES), RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
 
         PlacementUtils.register(context, PATCH_WILD_ONIONS,
-                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_ONIONS), RarityFilter.onAverageOnceEvery(Configuration.CHANCE_WILD_ONIONS.get()), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
+                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_ONIONS), RarityFilter.onAverageOnceEvery(120), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
 
         PlacementUtils.register(context, PATCH_WILD_TOMATOES,
-                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_TOMATOES), RarityFilter.onAverageOnceEvery(Configuration.CHANCE_WILD_TOMATOES.get()), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
+                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_TOMATOES), RarityFilter.onAverageOnceEvery(100), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
 
 
         PlacementUtils.register(context, PATCH_WILD_CARROTS,
-                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_CARROTS), RarityFilter.onAverageOnceEvery(Configuration.CHANCE_WILD_CARROTS.get()), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
+                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_CARROTS), RarityFilter.onAverageOnceEvery(120), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
 
         PlacementUtils.register(context, PATCH_WILD_POTATOES,
-                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_POTATOES), RarityFilter.onAverageOnceEvery(Configuration.CHANCE_WILD_POTATOES.get()), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
+                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_POTATOES), RarityFilter.onAverageOnceEvery(100), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
 
-        PlacementUtils.register(context, PATCH_WILD_BEETROOTS, configuredFeature.getOrThrow(FEATURE_PATCH_WILD_BEETROOTS), RarityFilter.onAverageOnceEvery(Configuration.CHANCE_WILD_BEETROOTS.get()), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
+        PlacementUtils.register(context, PATCH_WILD_BEETROOTS, configuredFeature.getOrThrow(FEATURE_PATCH_WILD_BEETROOTS), RarityFilter.onAverageOnceEvery(30), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
 
         PlacementUtils.register(context, PATCH_WILD_RICE,
-                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_RICE), RarityFilter.onAverageOnceEvery(Configuration.CHANCE_WILD_RICE.get()), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
+                configuredFeature.getOrThrow(FEATURE_PATCH_WILD_RICE), RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
         PlacementUtils.register(context, PATCH_BROWN_MUSHROOM_COLONIES,
-                configuredFeature.getOrThrow(FEATURE_PATCH_BROWN_MUSHROOM_COLONIES), RarityFilter.onAverageOnceEvery(Configuration.CHANCE_BROWN_MUSHROOM_COLONIES.get()), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
+                configuredFeature.getOrThrow(FEATURE_PATCH_BROWN_MUSHROOM_COLONIES), RarityFilter.onAverageOnceEvery(15), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
         PlacementUtils.register(context, PATCH_RED_MUSHROOM_COLONIES,
-                configuredFeature.getOrThrow(FEATURE_PATCH_RED_MUSHROOM_COLONIES), RarityFilter.onAverageOnceEvery(Configuration.CHANCE_RED_MUSHROOM_COLONIES.get()), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
+                configuredFeature.getOrThrow(FEATURE_PATCH_RED_MUSHROOM_COLONIES), RarityFilter.onAverageOnceEvery(15), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), TAGGED_IS_OVERWORLD);
 
     }
 
