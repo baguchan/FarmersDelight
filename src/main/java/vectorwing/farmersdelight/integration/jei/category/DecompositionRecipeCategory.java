@@ -1,4 +1,5 @@
 package vectorwing.farmersdelight.integration.jei.category;
+/*
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -123,3 +124,4 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
 	}
 }
 
+*/

@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -78,6 +79,11 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	}
 
 	@Override
+	public ItemStack getResultItem(RegistryAccess registryAccess) {
+		return this.output;
+	}
+
+	//no registry access version
 	public ItemStack getResultItem() {
 		return this.output;
 	}
@@ -87,7 +93,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	}
 
 	@Override
-	public ItemStack assemble(RecipeWrapper inv) {
+	public ItemStack assemble(RecipeWrapper inv, RegistryAccess registryAccess) {
 		return this.output.copy();
 	}
 

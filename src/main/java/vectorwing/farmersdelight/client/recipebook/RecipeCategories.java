@@ -35,11 +35,12 @@ public class RecipeCategories
 						case MISC -> COOKING_MISC.get();
 					};
 				}
-			}
 
-			// If no tab is specified in recipe, this fallback organizes them instead
-			if (recipe.getResultItem().getItem() instanceof DrinkableItem) {
-				return COOKING_DRINKS.get();
+
+				// If no tab is specified in recipe, this fallback organizes them instead
+				if (cookingRecipe.getResultItem().getItem() instanceof DrinkableItem) {
+					return COOKING_DRINKS.get();
+				}
 			}
 			return COOKING_MISC.get();
 		});

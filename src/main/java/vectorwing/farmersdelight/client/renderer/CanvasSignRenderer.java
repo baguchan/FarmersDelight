@@ -1,9 +1,8 @@
 package vectorwing.farmersdelight.client.renderer;
 
-import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -12,6 +11,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -29,8 +29,6 @@ import vectorwing.farmersdelight.common.registry.ModAtlases;
 
 import javax.annotation.Nullable;
 import java.util.List;
-
-import net.minecraft.client.renderer.blockentity.SignRenderer.SignModel;
 
 @OnlyIn(Dist.CLIENT)
 public class CanvasSignRenderer extends SignRenderer
@@ -57,12 +55,12 @@ public class CanvasSignRenderer extends SignRenderer
 		if (state.getBlock() instanceof StandingSignBlock) {
 			poseStack.translate(0.5D, 0.5D, 0.5D);
 			float f1 = -((float) (state.getValue(StandingSignBlock.ROTATION) * 360) / 16.0F);
-			poseStack.mulPose(Vector3f.YP.rotationDegrees(f1));
+			poseStack.mulPose(Axis.YP.rotationDegrees(f1));
 			signrenderer$signmodel.stick.visible = true;
 		} else {
 			poseStack.translate(0.5D, 0.5D, 0.5D);
 			float f4 = -state.getValue(WallSignBlock.FACING).toYRot();
-			poseStack.mulPose(Vector3f.YP.rotationDegrees(f4));
+			poseStack.mulPose(Axis.YP.rotationDegrees(f4));
 			poseStack.translate(0.0D, -0.3125D, -0.4375D);
 			signrenderer$signmodel.stick.visible = false;
 		}
@@ -109,7 +107,7 @@ public class CanvasSignRenderer extends SignRenderer
 			if (hasOutline) {
 				this.font.drawInBatch8xOutline(formattedcharsequence, x, y, baseColor, darkColor, poseStack.last().pose(), pBufferSource, light);
 			} else {
-				this.font.drawInBatch(formattedcharsequence, x, y, baseColor, false, poseStack.last().pose(), pBufferSource, false, 0, light);
+				this.font.drawInBatch(formattedcharsequence, x, y, baseColor, false, poseStack.last().pose(), pBufferSource, Font.DisplayMode.NORMAL, 0, light);
 			}
 		}
 
@@ -134,12 +132,17 @@ public class CanvasSignRenderer extends SignRenderer
 	private static int getDarkColor(SignBlockEntity blockEntity, boolean isOutlineVisible) {
 		int textColor = blockEntity.getColor().getTextColor();
 		double brightness = isOutlineVisible ? 0.4D : 0.6D;
-		int red = (int) ((double) NativeImage.getR(textColor) * brightness);
-		int green = (int) ((double) NativeImage.getG(textColor) * brightness);
-		int blue = (int) ((double) NativeImage.getB(textColor) * brightness);
-		return textColor == DyeColor.BLACK.getTextColor() && blockEntity.hasGlowingText() ? -988212 : NativeImage.combine(0, blue, green, red);
+		int i = blockEntity.getColor().getTextColor();
+		if (i == DyeColor.BLACK.getTextColor() && blockEntity.hasGlowingText()) {
+			return -988212;
+		} else {
+			double d0 = 0.4D;
+			int red = (int) ((double) FastColor.ARGB32.red(i) * 0.4D);
+			int green = (int) ((double) FastColor.ARGB32.green(i) * 0.4D);
+			int blue = (int) ((double) FastColor.ARGB32.blue(i) * 0.4D);
+			return FastColor.ARGB32.color(0, red, green, blue);
+		}
 	}
-
 	public static Material getMaterial(@Nullable DyeColor dyeColor) {
 		return dyeColor != null ? ModAtlases.DYED_CANVAS_SIGN_MATERIALS.get(dyeColor) : ModAtlases.BLANK_CANVAS_SIGN_MATERIAL;
 	}

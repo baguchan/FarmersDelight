@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.integration.crafttweaker.managers;
 
-import com.blamejared.crafttweaker.api.CraftTweakerAPI;
+/*import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.CraftTweakerConstants;
 import com.blamejared.crafttweaker.api.action.recipe.ActionAddRecipe;
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
@@ -16,7 +16,7 @@ import org.openzen.zencode.java.ZenCodeType;
 import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
-import vectorwing.farmersdelight.common.utility.ListUtils;
+import vectorwing.farmersdelight.common.utility.ListUtils;*/
 
 /**
  * Farmer's Delight Cooking Pot recipes.
@@ -26,26 +26,28 @@ import vectorwing.farmersdelight.common.utility.ListUtils;
 //@Document("mods/farmersdelight/CookingPot")
 //@ZenRegister
 //@ZenCodeType.Name("mods.farmersdelight.CookingPot")
+/*
 public class CookingPotRecipeManager implements IRecipeManager
 {
-    /**
-     * Add a cooking pot recipe.
-     *
-     * @param name       Name of the recipe to add
-     * @param output     Output item
-     * @param inputs     Input ingredients
-     * @param container  Container item
-     * @param experience Experience granted
-     * @param cookTime   Cooking time
-     *
-     * @docParam name "cooking_pot_test"
-     * @docParam output <item:minecraft:enchanted_golden_apple>
-     * @docParam inputs [<item:minecraft:gold_block>]
-     * @docParam cookingPotRecipeBookTab <constant:farmersdelight:cooking_pot_recipe_book_tab:misc>
-     * @docParam container <item:minecraft:apple>
-     * @docParam experience 100
-     * @docParam cookTime 400
-     */
+    */
+/**
+ * Add a cooking pot recipe.
+ *
+ * @param name       Name of the recipe to add
+ * @param output     Output item
+ * @param inputs     Input ingredients
+ * @param container  Container item
+ * @param experience Experience granted
+ * @param cookTime   Cooking time
+ * @docParam name "cooking_pot_test"
+ * @docParam output <item:minecraft:enchanted_golden_apple>
+ * @docParam inputs [<item:minecraft:gold_block>]
+ * @docParam cookingPotRecipeBookTab <constant:farmersdelight:cooking_pot_recipe_book_tab:misc>
+ * @docParam container <item:minecraft:apple>
+ * @docParam experience 100
+ * @docParam cookTime 400
+ *//*
+
     @ZenCodeType.Method
     public void addRecipe(String name,
                           IItemStack output,
@@ -86,3 +88,4 @@ public class CookingPotRecipeManager implements IRecipeManager
         return ModRecipeTypes.COOKING.get();
     }
 }
+*/

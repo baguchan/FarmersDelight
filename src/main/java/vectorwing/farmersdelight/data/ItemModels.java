@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.data;
 
 import com.google.common.collect.Sets;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -18,14 +18,13 @@ import java.util.stream.Collectors;
 /**
  * Credits to Vazkii and team for some references on mass-reading blocks to datagen!
  */
-public class ItemModels extends ItemModelProvider
-{
+public class ItemModels extends ItemModelProvider {
 	public static final String GENERATED = "item/generated";
 	public static final String HANDHELD = "item/handheld";
 	public static final ResourceLocation MUG = new ResourceLocation(FarmersDelight.MODID, "item/mug");
 
-	public ItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, FarmersDelight.MODID, existingFileHelper);
+	public ItemModels(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+		super(packOutput, FarmersDelight.MODID, existingFileHelper);
 	}
 
 	@Override

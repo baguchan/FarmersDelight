@@ -1,4 +1,5 @@
 package vectorwing.farmersdelight.integration.jei.category;
+/*
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
@@ -109,3 +110,4 @@ public class CookingRecipeCategory implements IRecipeCategory<CookingPotRecipe>
 		heatIndicator.draw(matrixStack, 18, 39);
 	}
 }
+*/

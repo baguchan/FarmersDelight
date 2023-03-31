@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.integration.crafttweaker;
 
+/*
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
 import com.blamejared.crafttweaker.api.ingredient.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
@@ -10,10 +11,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.ToolAction;
 import org.openzen.zencode.java.ZenCodeType;
 import vectorwing.farmersdelight.common.crafting.ingredient.ToolActionIngredient;
+*/
 
 //@Document("mods/farmersdelight/ToolActionIngredient")
 //@ZenRegister
 //@ZenCodeType.Name("mods.farmersdelight.ToolActionIngredient")
+/*
 public class CTToolActionIngredient implements IIngredient {
 
     public static final String PREFIX = "toolingredient";
@@ -66,3 +69,4 @@ public class CTToolActionIngredient implements IIngredient {
 
     }
 }
+*/

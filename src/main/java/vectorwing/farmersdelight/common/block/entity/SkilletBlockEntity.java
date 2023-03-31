@@ -92,7 +92,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 			SimpleContainer wrapper = new SimpleContainer(cookingStack);
 			Optional<CampfireCookingRecipe> recipe = getMatchingRecipe(wrapper);
 			if (recipe.isPresent()) {
-				ItemStack resultStack = recipe.get().assemble(wrapper);
+				ItemStack resultStack = recipe.get().assemble(wrapper, this.level.registryAccess());
 				Direction direction = getBlockState().getValue(SkilletBlock.FACING).getClockWise();
 				ItemUtils.spawnItemEntity(level, resultStack.copy(),
 						worldPosition.getX() + 0.5, worldPosition.getY() + 0.3, worldPosition.getZ() + 0.5,

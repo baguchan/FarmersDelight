@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.data;
 
 import com.google.common.collect.Sets;
 import net.minecraft.core.Direction;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -32,7 +32,7 @@ public class BlockStates extends BlockStateProvider
 {
 	private static final int DEFAULT_ANGLE_OFFSET = 180;
 
-	public BlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
+	public BlockStates(PackOutput gen, ExistingFileHelper exFileHelper) {
 		super(gen, FarmersDelight.MODID, exFileHelper);
 	}
 

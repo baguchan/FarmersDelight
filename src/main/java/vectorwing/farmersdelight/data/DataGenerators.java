@@ -1,30 +1,35 @@
 package vectorwing.farmersdelight.data;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.data.event.GatherDataEvent;
 import vectorwing.farmersdelight.FarmersDelight;
+
+import java.util.concurrent.CompletableFuture;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = FarmersDelight.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class DataGenerators
-{
+public class DataGenerators {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {
 		DataGenerator generator = event.getGenerator();
-		ExistingFileHelper helper = event.getExistingFileHelper();
+		PackOutput packOutput = generator.getPackOutput();
+		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-		BlockTags blockTags = new BlockTags(generator, FarmersDelight.MODID, helper);
+		BlockTags blockTags = new BlockTags(packOutput, lookupProvider, FarmersDelight.MODID, existingFileHelper);
 		generator.addProvider(event.includeServer(), blockTags);
-		generator.addProvider(event.includeServer(), new ItemTags(generator, blockTags, FarmersDelight.MODID, helper));
-		generator.addProvider(event.includeServer(), new EntityTags(generator, FarmersDelight.MODID, helper));
-		generator.addProvider(event.includeServer(), new Recipes(generator));
-		generator.addProvider(event.includeServer(), new Advancements(generator));
+		generator.addProvider(event.includeServer(), new ItemTags(packOutput, lookupProvider, blockTags.contentsGetter(), FarmersDelight.MODID, existingFileHelper));
+		generator.addProvider(event.includeServer(), new EntityTags(packOutput, lookupProvider, FarmersDelight.MODID, existingFileHelper));
+		generator.addProvider(event.includeServer(), new Recipes(packOutput));
+		generator.addProvider(event.includeServer(), new Advancements(packOutput, lookupProvider));
 
-		BlockStates blockStates = new BlockStates(generator, helper);
+		BlockStates blockStates = new BlockStates(packOutput, existingFileHelper);
 		generator.addProvider(event.includeClient(), blockStates);
-		generator.addProvider(event.includeClient(), new ItemModels(generator, blockStates.models().existingFileHelper));
+		generator.addProvider(event.includeClient(), new ItemModels(packOutput, blockStates.models().existingFileHelper));
 	}
 }

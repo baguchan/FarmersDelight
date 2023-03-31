@@ -174,7 +174,7 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> im
 
 	@Override
 	public void removed() {
-		this.recipeBookComponent.removed();
+		this.recipeBookComponent.hide();
 		super.removed();
 	}
 

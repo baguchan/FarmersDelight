@@ -1,23 +1,22 @@
 package vectorwing.farmersdelight.data;
 
-import com.google.common.collect.Sets;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RespawnAnchorBlock;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -30,53 +29,34 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Set;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class Advancements extends AdvancementProvider
-{
-	private final Path PATH;
+public class Advancements extends AdvancementProvider {
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	public Advancements(DataGenerator generatorIn) {
-		super(generatorIn);
-		PATH = generatorIn.getOutputFolder();
+	public Advancements(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> holder) {
+		super(packOutput, holder, List.of(new FarmersDelightAdvancements()));
 	}
 
-	@Override
-	public void run(CachedOutput cache) {
-		Set<ResourceLocation> set = Sets.newHashSet();
-		Consumer<Advancement> consumer = (advancement) -> {
-			if (!set.add(advancement.getId())) {
-				throw new IllegalStateException("Duplicate advancement " + advancement.getId());
-			} else {
-				Path path1 = getPath(PATH, advancement);
+	public static class FarmersDelightAdvancements implements AdvancementSubProvider {
 
-				try {
-					DataProvider.saveStable(cache, advancement.deconstruct().serializeToJson(), path1);
-				}
-				catch (IOException ioexception) {
-					LOGGER.error("Couldn't save advancement {}", path1, ioexception);
-				}
-			}
-		};
+		protected static Advancement.Builder getAdvancement(Advancement parent, ItemLike display, String name, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
+			return Advancement.Builder.advancement().parent(parent).display(display,
+					TextUtils.getTranslation("advancement." + name),
+					TextUtils.getTranslation("advancement." + name + ".desc"),
+					null, frame, showToast, announceToChat, hidden);
+		}
 
-		new FarmersDelightAdvancements().accept(consumer);
-	}
+		private String getNameId(String id) {
+			return FarmersDelight.MODID + ":" + id;
+		}
 
-	private static Path getPath(Path pathIn, Advancement advancementIn) {
-		return pathIn.resolve("data/" + advancementIn.getId().getNamespace() + "/advancements/" + advancementIn.getId().getPath() + ".json");
-	}
-
-	public static class FarmersDelightAdvancements implements Consumer<Consumer<Advancement>>
-	{
 		@Override
-		@SuppressWarnings("unused")
-		public void accept(Consumer<Advancement> consumer) {
+		public void generate(HolderLookup.Provider p_255901_, Consumer<Advancement> consumer) {
 			Advancement farmersDelight = Advancement.Builder.advancement()
 					.display(ModItems.COOKING_POT.get(),
 							TextUtils.getTranslation("advancement.root"),
@@ -161,7 +141,7 @@ public class Advancements extends AdvancementProvider
 			Advancement booHiss = getAdvancement(tallmato, ModItems.ROTTEN_TOMATO.get(), "hit_raider_with_rotten_tomato", FrameType.TASK, true, true, false)
 					.addCriterion("hit_raider_with_rotten_tomato", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(
 							DamagePredicate.Builder.damageInstance()
-									.type(DamageSourcePredicate.Builder.damageType().isProjectile(true).direct(EntityPredicate.Builder.entity().of(ModEntityTypes.ROTTEN_TOMATO.get()))).build(),
+									.type(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE)).direct(EntityPredicate.Builder.entity().of(ModEntityTypes.ROTTEN_TOMATO.get()))).build(),
 							EntityPredicate.Builder.entity().of(EntityTypeTags.RAIDERS).build()))
 					.save(consumer, getNameId("main/hit_raider_with_rotten_tomato"));
 
@@ -250,17 +230,6 @@ public class Advancements extends AdvancementProvider
 					.addCriterion("mushroom_rice", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.MUSHROOM_RICE.get()))
 					.rewards(AdvancementRewards.Builder.experience(200))
 					.save(consumer, getNameId("main/master_chef"));
-		}
-
-		protected static Advancement.Builder getAdvancement(Advancement parent, ItemLike display, String name, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
-			return Advancement.Builder.advancement().parent(parent).display(display,
-					TextUtils.getTranslation("advancement." + name),
-					TextUtils.getTranslation("advancement." + name + ".desc"),
-					null, frame, showToast, announceToChat, hidden);
-		}
-
-		private String getNameId(String id) {
-			return FarmersDelight.MODID + ":" + id;
 		}
 	}
 }

@@ -117,23 +117,25 @@ sourceSets.main.resources {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
+    // We should wait JEI... sorry
     // compile against the JEI API but do not include it at runtime
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+    //compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    //compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     // at runtime, use the full JEI jar for Forge
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+    //runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
     compileOnly fg.deobf("squeek.appleskin:appleskin-forge:${appleskin_version}:api")
     runtimeOnly fg.deobf("squeek.appleskin:appleskin-forge:${appleskin_version}")
 
-    def ctDep = fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.19.2:${crafttweaker_version}")
-    compileOnly ctDep
+    // sorry Craft Tweeker!
+    //def ctDep = fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.19.2:${crafttweaker_version}")
+    //compileOnly ctDep
 //    runtimeOnly ctDep
 
 //    annotationProcessor ctDep
 //    annotationProcessor "com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors:${crafttweaker_ap_version}"
-    annotationProcessor "org.reflections:reflections:0.9.10" // CT dep
-    annotationProcessor "com.google.code.gson:gson:2.8.7" // CT dep
+    //annotationProcessor "org.reflections:reflections:0.9.10" // CT dep
+    //annotationProcessor "com.google.code.gson:gson:2.8.7" // CT dep
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 

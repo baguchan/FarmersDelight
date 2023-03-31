@@ -12,6 +12,7 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -34,6 +35,7 @@ public class CookingPotRecipeBuilder
 {
 	private CookingPotRecipeBookTab tab;
 	private final List<Ingredient> ingredients = Lists.newArrayList();
+	private final RecipeCategory recipeCategory;
 	private final Item result;
 	private final int count;
 	private final int cookingTime;
@@ -41,7 +43,8 @@ public class CookingPotRecipeBuilder
 	private final Item container;
 	private final Advancement.Builder advancement = Advancement.Builder.advancement();
 
-	private CookingPotRecipeBuilder(ItemLike resultIn, int count, int cookingTime, float experience, @Nullable ItemLike container) {
+	private CookingPotRecipeBuilder(RecipeCategory recipeCategory, ItemLike resultIn, int count, int cookingTime, float experience, @Nullable ItemLike container) {
+		this.recipeCategory = recipeCategory;
 		this.result = resultIn.asItem();
 		this.count = count;
 		this.cookingTime = cookingTime;
@@ -51,11 +54,11 @@ public class CookingPotRecipeBuilder
 	}
 
 	public static CookingPotRecipeBuilder cookingPotRecipe(ItemLike mainResult, int count, int cookingTime, float experience) {
-		return new CookingPotRecipeBuilder(mainResult, count, cookingTime, experience, null);
+		return new CookingPotRecipeBuilder(RecipeCategory.FOOD, mainResult, count, cookingTime, experience, null);
 	}
 
 	public static CookingPotRecipeBuilder cookingPotRecipe(ItemLike mainResult, int count, int cookingTime, float experience, ItemLike container) {
-		return new CookingPotRecipeBuilder(mainResult, count, cookingTime, experience, container);
+		return new CookingPotRecipeBuilder(RecipeCategory.FOOD, mainResult, count, cookingTime, experience, container);
 	}
 
 	public CookingPotRecipeBuilder addIngredient(TagKey<Item> tagIn) {
@@ -122,7 +125,7 @@ public class CookingPotRecipeBuilder
 			advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
 					.rewards(AdvancementRewards.Builder.recipe(id))
 					.requirements(RequirementsStrategy.OR);
-			ResourceLocation advancementId = new ResourceLocation(id.getNamespace(), "recipes/" + result.getItemCategory().getRecipeFolderName() + "/" + id.getPath());
+			ResourceLocation advancementId = new ResourceLocation(id.getNamespace(), "recipes/" + recipeCategory.getFolderName() + "/" + id.getPath());
 			consumerIn.accept(new CookingPotRecipeBuilder.Result(id, result, count, ingredients, cookingTime, experience, container, tab, advancement, advancementId));
 		} else {
 			consumerIn.accept(new CookingPotRecipeBuilder.Result(id, result, count, ingredients, cookingTime, experience, container, tab));

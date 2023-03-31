@@ -3,12 +3,15 @@ package vectorwing.farmersdelight.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -48,8 +51,7 @@ import java.util.Random;
 @SuppressWarnings("deprecation")
 public class StoveBlock extends BaseEntityBlock
 {
-	public static final DamageSource STOVE_DAMAGE = (new DamageSource(FarmersDelight.MODID + ".stove")).setIsFire();
-
+	ResourceKey<DamageType> STOVE_DAMAGE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(FarmersDelight.MODID, "stove"));
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
@@ -134,7 +136,7 @@ public class StoveBlock extends BaseEntityBlock
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
 		boolean isLit = level.getBlockState(pos).getValue(StoveBlock.LIT);
 		if (isLit && !entity.fireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity)) {
-			entity.hurt(STOVE_DAMAGE, 1.0F);
+			entity.hurt(entity.damageSources().source(STOVE_DAMAGE), 1.0F);
 		}
 
 		super.stepOn(level, pos, state, entity);

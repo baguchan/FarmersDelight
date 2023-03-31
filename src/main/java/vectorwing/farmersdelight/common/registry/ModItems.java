@@ -2,16 +2,12 @@ package vectorwing.farmersdelight.common.registry;
 
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.*;
-import vectorwing.farmersdelight.common.item.DrinkableItem;
-import vectorwing.farmersdelight.common.item.HotCocoaItem;
-import vectorwing.farmersdelight.common.item.MelonJuiceItem;
-import vectorwing.farmersdelight.common.item.MilkBottleItem;
 
 @SuppressWarnings("unused")
 public class ModItems
@@ -20,19 +16,19 @@ public class ModItems
 
 	// Helper methods
 	public static Item.Properties basicItem() {
-		return new Item.Properties().tab(FarmersDelight.CREATIVE_TAB);
+		return new Item.Properties();
 	}
 
 	public static Item.Properties foodItem(FoodProperties food) {
-		return new Item.Properties().food(food).tab(FarmersDelight.CREATIVE_TAB);
+		return new Item.Properties().food(food);
 	}
 
 	public static Item.Properties bowlFoodItem(FoodProperties food) {
-		return new Item.Properties().food(food).craftRemainder(Items.BOWL).stacksTo(16).tab(FarmersDelight.CREATIVE_TAB);
+		return new Item.Properties().food(food).craftRemainder(Items.BOWL).stacksTo(16);
 	}
 
 	public static Item.Properties drinkItem() {
-		return new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).tab(FarmersDelight.CREATIVE_TAB);
+		return new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16);
 	}
 
 	// Blocks
@@ -179,22 +175,22 @@ public class ModItems
 
 	// Basic Crops
 	public static final RegistryObject<Item> CABBAGE = ITEMS.register("cabbage",
-			() -> new Item(foodItem(FoodValues.CABBAGE).tab(FarmersDelight.CREATIVE_TAB)));
+			() -> new Item(foodItem(FoodValues.CABBAGE)));
 	public static final RegistryObject<Item> TOMATO = ITEMS.register("tomato",
-			() -> new Item(foodItem(FoodValues.TOMATO).tab(FarmersDelight.CREATIVE_TAB)));
+			() -> new Item(foodItem(FoodValues.TOMATO)));
 	public static final RegistryObject<Item> ONION = ITEMS.register("onion",
-			() -> new ItemNameBlockItem(ModBlocks.ONION_CROP.get(), foodItem(FoodValues.ONION).tab(FarmersDelight.CREATIVE_TAB)));
+			() -> new ItemNameBlockItem(ModBlocks.ONION_CROP.get(), foodItem(FoodValues.ONION)));
 	public static final RegistryObject<Item> RICE_PANICLE = ITEMS.register("rice_panicle", () -> new Item(basicItem()));
 	public static final RegistryObject<Item> RICE = ITEMS.register("rice",
 			() -> new RiceItem(ModBlocks.RICE_CROP.get(), basicItem()));
 	public static final RegistryObject<Item> CABBAGE_SEEDS = ITEMS.register("cabbage_seeds", () -> new ItemNameBlockItem(ModBlocks.CABBAGE_CROP.get(), basicItem()));
 	public static final RegistryObject<Item> TOMATO_SEEDS = ITEMS.register("tomato_seeds", () -> new ItemNameBlockItem(ModBlocks.BUDDING_TOMATO_CROP.get(), basicItem()));
 	public static final RegistryObject<Item> ROTTEN_TOMATO = ITEMS.register("rotten_tomato",
-			() -> new RottenTomatoItem(new Item.Properties().stacksTo(16).tab(FarmersDelight.CREATIVE_TAB)));
+			() -> new RottenTomatoItem(new Item.Properties().stacksTo(16)));
 
 	// Foodstuffs
 	public static final RegistryObject<Item> FRIED_EGG = ITEMS.register("fried_egg",
-			() -> new Item(foodItem(FoodValues.FRIED_EGG).tab(FarmersDelight.CREATIVE_TAB)));
+			() -> new Item(foodItem(FoodValues.FRIED_EGG)));
 	public static final RegistryObject<Item> MILK_BOTTLE = ITEMS.register("milk_bottle",
 			() -> new MilkBottleItem(drinkItem()));
 	public static final RegistryObject<Item> HOT_COCOA = ITEMS.register("hot_cocoa",

@@ -2,27 +2,26 @@ package vectorwing.farmersdelight.client.model;
 
 import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Transformation;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.block.model.*;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.*;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.SimpleModelState;
-import net.minecraftforge.registries.ForgeRegistries;
-import vectorwing.farmersdelight.FarmersDelight;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Credits to the Botania Team for the class reference!
@@ -106,53 +105,13 @@ public class SkilletModel implements BakedModel
 	private final HashMap<Item, CompositeBakedModel> cache = new HashMap<>();
 
 	private CompositeBakedModel getCookingModel(ItemStack ingredientStack) {
-		return cache.computeIfAbsent(ingredientStack.getItem(), p -> new CompositeBakedModel(bakery, ingredientStack, cookingModel));
+		return cache.computeIfAbsent(ingredientStack.getItem(), p -> new CompositeBakedModel(cookingModel));
 	}
 
 	private static class CompositeBakedModel extends WrappedItemModel<BakedModel>
 	{
-		private final List<BakedQuad> genQuads = new ArrayList<>();
-		private final Map<Direction, List<BakedQuad>> faceQuads = new EnumMap<>(Direction.class);
-
-		public CompositeBakedModel(ModelBakery bakery, ItemStack ingredientStack, BakedModel skillet) {
+		public CompositeBakedModel(BakedModel skillet) {
 			super(skillet);
-
-			ResourceLocation ingredientLocation = ForgeRegistries.ITEMS.getKey(ingredientStack.getItem());
-			UnbakedModel ingredientUnbaked = bakery.getModel(new ModelResourceLocation(ingredientLocation, "inventory"));
-			ModelState transform = new SimpleModelState(
-					new Transformation(
-							new Vector3f(0.0F, -0.4F, 0.0F),
-							Vector3f.XP.rotationDegrees(270),
-							new Vector3f(0.625F, 0.625F, 0.625F), null));
-			ResourceLocation name = new ResourceLocation(FarmersDelight.MODID, "skillet_with_" + ingredientLocation.toString().replace(':', '_'));
-
-			BakedModel ingredientBaked;
-			if (ingredientUnbaked instanceof BlockModel bm && ((BlockModel) ingredientUnbaked).getRootModel() == ModelBakery.GENERATION_MARKER) {
-				ingredientBaked = new ItemModelGenerator()
-						.generateBlockModel(Material::sprite, bm)
-						.bake(bakery, bm, Material::sprite, transform, name, false);
-			} else {
-				ingredientBaked = ingredientUnbaked.bake(bakery, Material::sprite, transform, name);
-			}
-
-			for (Direction e : Direction.values()) {
-				faceQuads.put(e, new ArrayList<>());
-			}
-
-			RandomSource rand = RandomSource.create(0);
-			genQuads.addAll(ingredientBaked.getQuads(null, null, rand));
-
-			for (Direction e : Direction.values()) {
-				rand.setSeed(0);
-				faceQuads.get(e).addAll(ingredientBaked.getQuads(null, e, rand));
-			}
-
-			rand.setSeed(0);
-			genQuads.addAll(skillet.getQuads(null, null, rand));
-			for (Direction e : Direction.values()) {
-				rand.setSeed(0);
-				faceQuads.get(e).addAll(skillet.getQuads(null, e, rand));
-			}
 		}
 
 		@Override
@@ -163,11 +122,11 @@ public class SkilletModel implements BakedModel
 		@Nonnull
 		@Override
 		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, @Nonnull RandomSource rand) {
-			return face == null ? genQuads : faceQuads.get(face);
+			return originalModel.getQuads(state, face, rand);
 		}
 
 		@Override
-		public BakedModel applyTransform(@Nonnull ItemTransforms.TransformType cameraTransformType, PoseStack stack, boolean leftHand) {
+		public BakedModel applyTransform(@Nonnull ItemDisplayContext cameraTransformType, PoseStack stack, boolean leftHand) {
 			super.applyTransform(cameraTransformType, stack, leftHand);
 			return this;
 		}

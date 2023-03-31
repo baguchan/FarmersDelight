@@ -1,4 +1,5 @@
 package vectorwing.farmersdelight.integration.jei.category;
+/*
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
@@ -158,3 +159,4 @@ public class CuttingRecipeCategory implements IRecipeCategory<CuttingBoardRecipe
 //		ingredients.setOutputs(VanillaTypes.ITEM, cuttingBoardRecipe.getResults());
 //	}
 }
+*/

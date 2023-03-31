@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.integration.crafttweaker.managers;
 
 
+/*
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.CraftTweakerConstants;
 import com.blamejared.crafttweaker.api.action.recipe.ActionAddRecipe;
@@ -18,6 +19,7 @@ import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.utility.ListUtils;
 import vectorwing.farmersdelight.integration.crafttweaker.actions.ActionRemoveCuttingBoardRecipe;
+*/
 
 /**
  * Farmer's Delight Cutting Board recipes.
@@ -27,23 +29,33 @@ import vectorwing.farmersdelight.integration.crafttweaker.actions.ActionRemoveCu
 //@Document("mods/farmersdelight/CuttingBoard")
 //@ZenRegister
 //@ZenCodeType.Name("mods.farmersdelight.CuttingBoard")
+/*
 public class CuttingBoardRecipeManager implements IRecipeManager
 {
-    /**
-     * Add a cutting board recipe.
-     *
-     * @param name    Name of the recipe to add
-     * @param input   Input ingredient
-     * @param results Output items
-     * @param tool    Tool ingredient
-     * @param sound   Sound event name
-     *
-     * @docParam name "cutting_board_test"
-     * @docParam input <item:minecraft:gravel>
-     * @docParam results [<item:minecraft:flint>]
-     * @docParam tool <item:minecraft:string>
-     * @docParam sound "minecraft:block.gravel.break"
-     */
+    */
+/**
+ * Add a cutting board recipe.
+ *
+ * @param name    Name of the recipe to add
+ * @param input   Input ingredient
+ * @param results Output items
+ * @param tool    Tool ingredient
+ * @param sound   Sound event name
+ * @docParam name "cutting_board_test"
+ * @docParam input <item:minecraft:gravel>
+ * @docParam results [<item:minecraft:flint>]
+ * @docParam tool <item:minecraft:string>
+ * @docParam sound "minecraft:block.gravel.break"
+ * <p>
+ * Remove a cutting board recipe with multiple outputs.
+ * @param outputs Output items
+ * @docParam outputs [<item:farmersdelight:cooked_salmon_slice> * 2, <item:minecraft:bone_meal>]
+ * <p>
+ * Remove a cutting board recipe with multiple outputs.
+ * @param outputs Output items
+ * @docParam outputs [<item:farmersdelight:cooked_salmon_slice> * 2, <item:minecraft:bone_meal>]
+ *//*
+
     @ZenCodeType.Method
     public void addRecipe(String name,
                           IIngredient input,
@@ -62,13 +74,15 @@ public class CuttingBoardRecipeManager implements IRecipeManager
                 ""));
     }
 
-    /**
-     * Remove a cutting board recipe with multiple outputs.
-     *
-     * @param outputs Output items
-     *
-     * @docParam outputs [<item:farmersdelight:cooked_salmon_slice> * 2, <item:minecraft:bone_meal>]
-     */
+    */
+/**
+ * Remove a cutting board recipe with multiple outputs.
+ *
+ * @param outputs Output items
+ *
+ * @docParam outputs [<item:farmersdelight:cooked_salmon_slice> * 2, <item:minecraft:bone_meal>]
+ *//*
+
     @ZenCodeType.Method
     public void removeRecipe(IItemStack[] outputs) {
         CraftTweakerAPI.apply(new ActionRemoveCuttingBoardRecipe(this, outputs));
@@ -79,3 +93,4 @@ public class CuttingBoardRecipeManager implements IRecipeManager
         return ModRecipeTypes.CUTTING.get();
     }
 }
+*/

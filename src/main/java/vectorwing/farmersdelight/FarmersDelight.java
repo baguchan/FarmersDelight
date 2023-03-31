@@ -2,10 +2,7 @@ package vectorwing.farmersdelight;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.RecipeBookType;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -20,8 +17,6 @@ import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
 
-import javax.annotation.Nonnull;
-
 @Mod(FarmersDelight.MODID)
 public class FarmersDelight
 {
@@ -30,15 +25,6 @@ public class FarmersDelight
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
 	public static final RecipeBookType RECIPE_TYPE_COOKING = RecipeBookType.create("COOKING");
-
-	public static final CreativeModeTab CREATIVE_TAB = new CreativeModeTab(FarmersDelight.MODID)
-	{
-		@Nonnull
-		@Override
-		public ItemStack makeIcon() {
-			return new ItemStack(ModBlocks.STOVE.get());
-		}
-	};
 
 	public FarmersDelight() {
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
